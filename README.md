@@ -191,7 +191,7 @@ int main() {
 - `char* Trim(char* s)`: Quita los espacios en blanco al inicio y final de un string
 - `char* ReplaceAll(char* s, char* old, char* new)`: Reemplaza una string dentro de otro string
 
-#### Construcción/Modificación
+#### StringArray
 - `StringArray NewStringArray(int size)`: Crea objeto StringArray vacío
 - `void SetStringArrayValue(StringArray arr, int index, char* value)`
 - `char* GetStringArrayValue(StringArray arr, int index)`
