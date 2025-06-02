@@ -168,3 +168,48 @@ int main() {
 
 
 ---
+
+
+## 📚 Documentación de la API
+
+### Funciones Principales
+
+#### Conversiones
+- `int Atoi(char* s)`: Conviere una cadena de caracteres a entero
+- `double Atof(char* s)`: Conviere una cadena de caracteres a decimal
+- `char* Itoa(int n)`: Conviere un entero a cadena de caracteres
+- `char* Ftoa(double f, int precision)`: Conviere una decimal a cadena de caracteres, especificadon decimales
+- `int ParseBool(char* s)`: Conviere una cadena de caracteres booleana a entero
+
+#### Obtención de Valores
+- `JsonResult GetJSONValue(const char* json_str, const char* key)`: Obtiene valor por clave
+- `JsonResult GetJSONValueByPath(const char* json_str, const char* path)`: Obtiene valor por ruta
+- `JsonResult GetArrayLength(const char* json_str)`: Obtiene longitud de array
+- `JsonResult GetArrayItem(const char* json_str, int index)`: Obtiene elemento de array
+
+#### Construcción/Modificación
+- `JsonResult CreateEmptyJSON()`: Crea objeto JSON vacío
+- `JsonResult CreateEmptyArray()`: Crea array JSON vacío
+- `JsonResult AddStringToJSON(const char* json_str, const char* key, const char* value)`
+- `JsonResult AddNumberToJSON(const char* json_str, const char* key, double value)`
+- `JsonResult AddBooleanToJSON(const char* json_str, const char* key, int value)`
+- `JsonResult AddJSONToJSON(const char* parent_json, const char* key, const char* child_json)`
+- `JsonResult AddItemToArray(const char* json_array, const char* item)`
+- `JsonResult RemoveKeyFromJSON(const char* json_str, const char* key)`
+- `JsonResult RemoveItemFromArray(const char* json_array, int index)`
+- `JsonResult MergeJSON(const char* json1, const char* json2)`: Combina dos JSONs
+
+#### Utilidades
+- `JsonResult PrettyPrintJSON(const char* json_str)`: Formatea JSON con indentación
+- `void FreeJsonResult(JsonResult result)`: Libera memoria de resultados
+- `void FreeJsonArrayResult(JsonArrayResult result)`: Libera memoria de arrays
+
+### Estructuras
+```c
+typedef struct {
+    char** data;     // Array de elementos
+    int count;        // Número de elementos
+} StringArray;
+```
+
+---
