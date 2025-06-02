@@ -181,11 +181,15 @@ int main() {
 - `char* Ftoa(double f, int precision)`: Conviere una decimal a cadena de caracteres, especificadon decimales
 - `int ParseBool(char* s)`: Conviere una cadena de caracteres booleana a entero
 
-#### Obtención de Valores
-- `JsonResult GetJSONValue(const char* json_str, const char* key)`: Obtiene valor por clave
-- `JsonResult GetJSONValueByPath(const char* json_str, const char* path)`: Obtiene valor por ruta
-- `JsonResult GetArrayLength(const char* json_str)`: Obtiene longitud de array
-- `JsonResult GetArrayItem(const char* json_str, int index)`: Obtiene elemento de array
+#### String
+- `int StrLen(char* s)`: Obtiene longitud del string
+- `char* Substring(char* s, int start, int end)`: Extrae un string mediante indices
+- `IsNumeric(char* s)`: Valida si es un valor numerico
+- `char* ConcatAll(char** strs, int count)`: Concatena todos los string del array
+- `char* ToUpperCase(char* s);`: Convierte en mayusculas todos los caracteres
+- `char* ToLowerCase(char* s)`: Convierte en minusculas todos los caracteres
+- `char* Trim(char* s)`: Quita los espacios en blanco al inicio y final de un string
+- `char* ReplaceAll(char* s, char* old, char* new)`: Reemplaza una string dentro de otro string
 
 #### Construcción/Modificación
 - `JsonResult CreateEmptyJSON()`: Crea objeto JSON vacío
