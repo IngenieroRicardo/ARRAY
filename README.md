@@ -29,24 +29,38 @@ Librería en C para manipular Arreglos de Caracteres
 #include "STRING.h"
 
 int main() {
-    // Ejemplo de conexión y consulta
-    char* conexion = "root:123456@tcp(127.0.0.1:3306)/test";
-    char* query = "SELECT now();"; //Construcción de JSON desde Result
-    //char* query = "SELECT '{\"status\": \"OK\"}' AS JSON"; //Construcción de JSON desde Query
+    // Conversión de tipos
+    char* numStr = "123";
+    int num = Atoi(numStr);
+    printf("Atoi: %s -> %d\n", numStr, num);
     
-    SQLResult resultado = SQLrun(conexion, query, NULL, 0);
+    char* floatStr = "3.14159";
+    double pi = Atof(floatStr);
+    printf("Atof: %s -> %f\n", floatStr, pi);
     
-    if (resultado.is_error) {
-        printf("Error: %s\n", resultado.json);
-    } else if (resultado.is_empty) {
-        printf("Consulta ejecutada pero no retornó datos\n");
-        printf("JSON: %s\n", resultado.json); // Mostrará {"status":"OK"} o []
-    } else {
-        printf("Datos obtenidos:\n%s\n", resultado.json);
-    }
+    // Creación de strings
+    char* intStr = Itoa(42);
+    printf("Itoa: 42 -> %s\n", intStr);
     
-    // Liberar memoria
-    FreeSQLResult(resultado);
+    char* floatStr2 = Ftoa(3.14159, 2);
+    printf("Ftoa: 3.14159 (prec 2) -> %s\n", floatStr2);
+    
+    // Modificación de strings
+    char* original = "   Hola Mundo!   ";
+    char* trimmed = Trim(original);
+    printf("Trim: '%s' -> '%s'\n", original, trimmed);
+    
+    char* upper = ToUpperCase(trimmed);
+    char* lower = ToLowerCase(trimmed);
+    printf("ToUpperCase: '%s' -> '%s'\n", trimmed, upper);
+    printf("ToLowerCase: '%s' -> '%s'\n", trimmed, lower);
+    
+    // Limpieza de memoria
+    FreeString(intStr);
+    FreeString(floatStr2);
+    FreeString(trimmed);
+    FreeString(upper);
+    FreeString(lower);
     
     return 0;
 }
@@ -79,7 +93,7 @@ int main() {
     printf("Joined: %s\n", joined);
     
     // Dividir un string
-    char* text = "one,two,three,four";
+    char* text = "uno,dos,tres,cuatro";
     StringArray splitArr = Split(text, ",");
     printf("Split '%s':\n", text);
     for (int i = 0; i < GetStringArraySize(splitArr); i++) {
@@ -94,9 +108,6 @@ int main() {
     return 0;
 }
 ```
-
-
----
 
 ### 🧪 Ejemplo 3: Concatenación y reemplazo avanzado
 
@@ -105,36 +116,55 @@ int main() {
 #include "STRING.h"
 
 int main() {
-    // Crear un array de strings
-    StringArray arr = NewStringArray(4);
-    SetStringArrayValue(arr, 0, "Apple");
-    SetStringArrayValue(arr, 1, "Banana");
-    SetStringArrayValue(arr, 2, "Cherry");
-    SetStringArrayValue(arr, 3, "Date");
+    // --------------------------------------------------
+    // 1. Concatenación básica con Concat
+    // (para unir pocos strings conocidos)
+    // --------------------------------------------------
+    char* saludo = Concat("Hola", " ", "Mundo", NULL);
+    printf("Saludo combinado: %s\n", saludo);
     
-    // Obtener valores individuales
-    printf("Fruits:\n");
-    for (int i = 0; i < GetStringArraySize(arr); i++) {
-        printf("- %s\n", GetStringArrayValue(arr, i));
-    }
+    // --------------------------------------------------
+    // 2. Concatenación avanzada con ConcatAll 
+    // (para unir arrays de strings)
+    // --------------------------------------------------
+    char* partes[] = {
+        "El rápido ", 
+        "zorro marrón ", 
+        "salta sobre ", 
+        "el perro perezoso.", 
+        NULL
+    };
+    char* fraseCompleta = ConcatAll(partes, 4); // 4 elementos (sin contar NULL)
+    printf("Frase completa: %s\n", fraseCompleta);
     
-    // Unir strings con un delimitador
-    char* joined = JoinStringArray(arr, ", ");
-    printf("Joined: %s\n", joined);
+    // --------------------------------------------------
+    // 3. Reemplazo de texto en un string
+    // --------------------------------------------------
+    char* textoOriginal = "Me gustan las manzanas, las manzanas son mis favoritas.";
+    char* textoModificado = ReplaceAll(textoOriginal, "manzanas", "naranjas");
+    printf("Texto original: %s\n", textoOriginal);
+    printf("Texto modificado: %s\n", textoModificado);
     
-    // Dividir un string
-    char* text = "one,two,three,four";
-    StringArray splitArr = Split(text, ",");
-    printf("Split '%s':\n", text);
-    for (int i = 0; i < GetStringArraySize(splitArr); i++) {
-        printf("- %s\n", GetStringArrayValue(splitArr, i));
-    }
+    // --------------------------------------------------
+    // 4. Operaciones con substrings y longitud
+    // --------------------------------------------------
+    char* textoLargo = "Este es un texto muy largo para el ejemplo";
+    int longitud = StrLen(textoLargo);
+    char* fragmento = Substring(textoLargo, 8, 22);
+    printf("Longitud del texto: %d caracteres\n", longitud);
+    printf("Fragmento (8-22): '%s'\n", fragmento);
     
-    // Limpieza de memoria
-    FreeString(joined);
-    FreeStringArray(arr);
-    FreeStringArray(splitArr);
+    // --------------------------------------------------
+    // LIMPIEZA - Liberar memoria asignada
+    // --------------------------------------------------
+    FreeString(saludo);
+    FreeString(fraseCompleta);
+    FreeString(textoModificado);
+    FreeString(fragmento);
     
     return 0;
 }
 ```
+
+
+---
