@@ -192,21 +192,17 @@ int main() {
 - `char* ReplaceAll(char* s, char* old, char* new)`: Reemplaza una string dentro de otro string
 
 #### Construcción/Modificación
-- `JsonResult CreateEmptyJSON()`: Crea objeto JSON vacío
-- `JsonResult CreateEmptyArray()`: Crea array JSON vacío
-- `JsonResult AddStringToJSON(const char* json_str, const char* key, const char* value)`
-- `JsonResult AddNumberToJSON(const char* json_str, const char* key, double value)`
-- `JsonResult AddBooleanToJSON(const char* json_str, const char* key, int value)`
-- `JsonResult AddJSONToJSON(const char* parent_json, const char* key, const char* child_json)`
-- `JsonResult AddItemToArray(const char* json_array, const char* item)`
-- `JsonResult RemoveKeyFromJSON(const char* json_str, const char* key)`
-- `JsonResult RemoveItemFromArray(const char* json_array, int index)`
+- `StringArray NewStringArray(int size)`: Crea objeto StringArray vacío
+- `void SetStringArrayValue(StringArray arr, int index, char* value)`
+- `char* GetStringArrayValue(StringArray arr, int index)`
+- `int GetStringArraySize(StringArray arr)`
+- `char* JoinStringArray(StringArray arr, char* delimiter)`
+- `StringArray Split(char* s, char* sep)`: Convierte un string en StringArray por un separador
 - `JsonResult MergeJSON(const char* json1, const char* json2)`: Combina dos JSONs
 
 #### Utilidades
-- `JsonResult PrettyPrintJSON(const char* json_str)`: Formatea JSON con indentación
-- `void FreeJsonResult(JsonResult result)`: Libera memoria de resultados
-- `void FreeJsonArrayResult(JsonArrayResult result)`: Libera memoria de arrays
+- `void FreeString(char* s)`: Libera memoria
+- `void FreeStringArray(StringArray arr)`: Libera memoria de arrays
 
 ### Estructuras
 ```c
