@@ -11,9 +11,6 @@ typedef struct {
     int count;
 } StringArray;
 
-
-
-
 static char* Concat(char *first, ...) {
     va_list args;
     char *token;
@@ -43,8 +40,7 @@ static char* Concat(char *first, ...) {
     va_end(args);
     
     return result;
-}
-*/
+}*/
 import "C"
 import (
 	"strconv"
@@ -55,7 +51,6 @@ import (
 
 // ========== Funciones de Conversión ==========
 
-// Atoi convierte string a entero (similar a atoi en C)
 //export Atoi
 func Atoi(s *C.char) C.int {
 	goStr := C.GoString(s)
@@ -66,7 +61,6 @@ func Atoi(s *C.char) C.int {
 	return C.int(val)
 }
 
-// Atof convierte string a float64 (similar a atof en C)
 //export Atof
 func Atof(s *C.char) C.double {
 	goStr := C.GoString(s)
@@ -77,19 +71,16 @@ func Atof(s *C.char) C.double {
 	return C.double(val)
 }
 
-// Itoa convierte entero a string (similar a itoa en C)
 //export Itoa
 func Itoa(n C.int) *C.char {
 	return C.CString(strconv.Itoa(int(n)))
 }
 
-// Ftoa convierte float a string con precisión especificada
 //export Ftoa
 func Ftoa(f C.double, precision C.int) *C.char {
 	return C.CString(strconv.FormatFloat(float64(f), 'f', int(precision), 64))
 }
 
-// ParseBool convierte string a booleano (1=true, 0=false)
 //export ParseBool
 func ParseBool(s *C.char) C.int {
 	goStr := C.GoString(s)
@@ -103,18 +94,13 @@ func ParseBool(s *C.char) C.int {
 	return 0
 }
 
+// ========== Funciones String ==========
 
-
-
-// ========== Funciones Adicionales Utiles ==========
-
-// StrLen devuelve la longitud de un string
 //export StrLen
 func StrLen(s *C.char) C.int {
 	return C.int(len(C.GoString(s)))
 }
 
-// Substring obtiene un substring desde start hasta end
 //export Substring
 func Substring(s *C.char, start, end C.int) *C.char {
 	goStr := C.GoString(s)
@@ -128,7 +114,6 @@ func Substring(s *C.char, start, end C.int) *C.char {
 	return C.CString(goStr[goStart:goEnd])
 }
 
-// IsNumeric verifica si un string es numérico
 //export IsNumeric
 func IsNumeric(s *C.char) C.int {
 	goStr := C.GoString(s)
@@ -139,22 +124,6 @@ func IsNumeric(s *C.char) C.int {
 	return 1
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Exportar funciones para C
-
-// ConcatAll concatena todas las strings pasadas como argumentos
 //export ConcatAll
 func ConcatAll(strs **C.char, count C.int) *C.char {
 	// Convertir el array de C a slice de Go
@@ -170,28 +139,24 @@ func ConcatAll(strs **C.char, count C.int) *C.char {
 	return C.CString(result)
 }
 
-// ToUpperCase convierte un string a mayúsculas
 //export ToUpperCase
 func ToUpperCase(s *C.char) *C.char {
 	goStr := C.GoString(s)
 	return C.CString(strings.ToUpper(goStr))
 }
 
-// ToLowerCase convierte un string a minúsculas
 //export ToLowerCase
 func ToLowerCase(s *C.char) *C.char {
 	goStr := C.GoString(s)
 	return C.CString(strings.ToLower(goStr))
 }
 
-// Trim elimina espacios en blanco al inicio y final
 //export Trim
 func Trim(s *C.char) *C.char {
 	goStr := C.GoString(s)
 	return C.CString(strings.TrimSpace(goStr))
 }
 
-// ReplaceAll reemplaza todas las ocurrencias de old por new
 //export ReplaceAll
 func ReplaceAll(s, old, new *C.char) *C.char {
 	goStr := C.GoString(s)
@@ -200,16 +165,7 @@ func ReplaceAll(s, old, new *C.char) *C.char {
 	return C.CString(strings.ReplaceAll(goStr, goOld, goNew))
 }
 
-
-
-
-
-
-
-
-
-
-
+// ========== Funciones StringArray ==========
 
 //export NewStringArray
 func NewStringArray(size C.int) C.StringArray {
