@@ -116,17 +116,11 @@ int main() {
 #include "STRING.h"
 
 int main() {
-    // --------------------------------------------------
-    // 1. Concatenación básica con Concat
-    // (para unir pocos strings conocidos)
-    // --------------------------------------------------
+    // Concatenación básica con Concat
     String saludo = Concat("Hola", " ", "Mundo", NULL);
     printf("Saludo combinado: %s\n", saludo);
     
-    // --------------------------------------------------
-    // 2. Concatenación avanzada con ConcatAll 
-    // (para unir arrays de strings)
-    // --------------------------------------------------
+    // Concatenación avanzada con ConcatAll 
     String partes[] = {
         "El rápido ", 
         "zorro marrón ", 
@@ -137,26 +131,20 @@ int main() {
     String fraseCompleta = ConcatAll(partes, 4); // 4 elementos (sin contar NULL)
     printf("Frase completa: %s\n", fraseCompleta);
     
-    // --------------------------------------------------
-    // 3. Reemplazo de texto en un string
-    // --------------------------------------------------
+    // Reemplazo de texto en un string
     String textoOriginal = "Me gustan las manzanas, las manzanas son mis favoritas.";
     String textoModificado = ReplaceAll(textoOriginal, "manzanas", "naranjas");
     printf("Texto original: %s\n", textoOriginal);
     printf("Texto modificado: %s\n", textoModificado);
     
-    // --------------------------------------------------
-    // 4. Operaciones con substrings y longitud
-    // --------------------------------------------------
+    // Operaciones con substrings y longitud
     String textoLargo = "Este es un texto muy largo para el ejemplo";
     int longitud = StrLen(textoLargo);
     String fragmento = Substring(textoLargo, 8, 22);
     printf("Longitud del texto: %d caracteres\n", longitud);
     printf("Fragmento (8-22): '%s'\n", fragmento);
     
-    // --------------------------------------------------
     // LIMPIEZA - Liberar memoria asignada
-    // --------------------------------------------------
     FreeString(saludo);
     FreeString(fraseCompleta);
     FreeString(textoModificado);
