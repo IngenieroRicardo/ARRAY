@@ -30,28 +30,28 @@ Librería en C para manipular Arreglos de Caracteres
 
 int main() {
     // Conversión de tipos
-    char* numStr = "123";
+    String numStr = "123";
     int num = Atoi(numStr);
     printf("Atoi: %s -> %d\n", numStr, num);
     
-    char* floatStr = "3.14159";
+    String floatStr = "3.14159";
     double pi = Atof(floatStr);
     printf("Atof: %s -> %f\n", floatStr, pi);
     
     // Creación de strings
-    char* intStr = Itoa(42);
+    String intStr = Itoa(42);
     printf("Itoa: 42 -> %s\n", intStr);
     
-    char* floatStr2 = Ftoa(3.14159, 2);
+    String floatStr2 = Ftoa(3.14159, 2);
     printf("Ftoa: 3.14159 (prec 2) -> %s\n", floatStr2);
     
     // Modificación de strings
-    char* original = "   Hola Mundo!   ";
-    char* trimmed = Trim(original);
+    String original = "   Hola Mundo!   ";
+    String trimmed = Trim(original);
     printf("Trim: '%s' -> '%s'\n", original, trimmed);
     
-    char* upper = ToUpperCase(trimmed);
-    char* lower = ToLowerCase(trimmed);
+    String upper = ToUpperCase(trimmed);
+    String lower = ToLowerCase(trimmed);
     printf("ToUpperCase: '%s' -> '%s'\n", trimmed, upper);
     printf("ToLowerCase: '%s' -> '%s'\n", trimmed, lower);
     
@@ -89,11 +89,11 @@ int main() {
     }
     
     // Unir strings con un delimitador
-    char* joined = JoinStringArray(arr, ", ");
+    String joined = JoinStringArray(arr, ", ");
     printf("Joined: %s\n", joined);
     
     // Dividir un string
-    char* text = "uno,dos,tres,cuatro";
+    String text = "uno,dos,tres,cuatro";
     StringArray splitArr = Split(text, ",");
     printf("Split '%s':\n", text);
     for (int i = 0; i < GetStringArraySize(splitArr); i++) {
@@ -120,37 +120,37 @@ int main() {
     // 1. Concatenación básica con Concat
     // (para unir pocos strings conocidos)
     // --------------------------------------------------
-    char* saludo = Concat("Hola", " ", "Mundo", NULL);
+    String saludo = Concat("Hola", " ", "Mundo", NULL);
     printf("Saludo combinado: %s\n", saludo);
     
     // --------------------------------------------------
     // 2. Concatenación avanzada con ConcatAll 
     // (para unir arrays de strings)
     // --------------------------------------------------
-    char* partes[] = {
+    String partes[] = {
         "El rápido ", 
         "zorro marrón ", 
         "salta sobre ", 
         "el perro perezoso.", 
         NULL
     };
-    char* fraseCompleta = ConcatAll(partes, 4); // 4 elementos (sin contar NULL)
+    String fraseCompleta = ConcatAll(partes, 4); // 4 elementos (sin contar NULL)
     printf("Frase completa: %s\n", fraseCompleta);
     
     // --------------------------------------------------
     // 3. Reemplazo de texto en un string
     // --------------------------------------------------
-    char* textoOriginal = "Me gustan las manzanas, las manzanas son mis favoritas.";
-    char* textoModificado = ReplaceAll(textoOriginal, "manzanas", "naranjas");
+    String textoOriginal = "Me gustan las manzanas, las manzanas son mis favoritas.";
+    String textoModificado = ReplaceAll(textoOriginal, "manzanas", "naranjas");
     printf("Texto original: %s\n", textoOriginal);
     printf("Texto modificado: %s\n", textoModificado);
     
     // --------------------------------------------------
     // 4. Operaciones con substrings y longitud
     // --------------------------------------------------
-    char* textoLargo = "Este es un texto muy largo para el ejemplo";
+    String textoLargo = "Este es un texto muy largo para el ejemplo";
     int longitud = StrLen(textoLargo);
-    char* fragmento = Substring(textoLargo, 8, 22);
+    String fragmento = Substring(textoLargo, 8, 22);
     printf("Longitud del texto: %d caracteres\n", longitud);
     printf("Fragmento (8-22): '%s'\n", fragmento);
     

@@ -6,14 +6,16 @@ package main
 #include <stdio.h>
 #include <stdarg.h>
 
+typedef char* String; // Definimos String como alias de char*
+
 typedef struct {
-    char** data;
+    String* data;
     int count;
 } StringArray;
 
-static char* Concat(char *first, ...) {
+static String Concat(String first, ...) {
     va_list args;
-    char *token;
+    String token;
     size_t total_len = 0;
     
     // 1. Calcular longitud total necesaria
@@ -21,12 +23,12 @@ static char* Concat(char *first, ...) {
     token = first;
     while(token != NULL) {
         total_len += strlen(token);
-        token = va_arg(args, char*);
+        token = va_arg(args, String);
     }
     va_end(args);
     
     // 2. Reservar memoria (incluyendo espacio para \0)
-    char *result = malloc(total_len + 1);
+    String result = malloc(total_len + 1);
     if(result == NULL) return NULL;
     result[0] = '\0';
     
@@ -35,7 +37,7 @@ static char* Concat(char *first, ...) {
     token = first;
     while(token != NULL) {
         strcat(result, token);
-        token = va_arg(args, char*);
+        token = va_arg(args, String);
     }
     va_end(args);
     
@@ -52,7 +54,7 @@ import (
 // ========== Funciones de Conversión ==========
 
 //export Atoi
-func Atoi(s *C.char) C.int {
+func Atoi(s C.String) C.int {
 	goStr := C.GoString(s)
 	val, err := strconv.Atoi(goStr)
 	if err != nil {
@@ -62,7 +64,7 @@ func Atoi(s *C.char) C.int {
 }
 
 //export Atof
-func Atof(s *C.char) C.double {
+func Atof(s C.String) C.double {
 	goStr := C.GoString(s)
 	val, err := strconv.ParseFloat(goStr, 64)
 	if err != nil {
@@ -72,17 +74,17 @@ func Atof(s *C.char) C.double {
 }
 
 //export Itoa
-func Itoa(n C.int) *C.char {
+func Itoa(n C.int) C.String {
 	return C.CString(strconv.Itoa(int(n)))
 }
 
 //export Ftoa
-func Ftoa(f C.double, precision C.int) *C.char {
+func Ftoa(f C.double, precision C.int) C.String {
 	return C.CString(strconv.FormatFloat(float64(f), 'f', int(precision), 64))
 }
 
 //export ParseBool
-func ParseBool(s *C.char) C.int {
+func ParseBool(s C.String) C.int {
 	goStr := C.GoString(s)
 	val, err := strconv.ParseBool(goStr)
 	if err != nil {
@@ -97,12 +99,12 @@ func ParseBool(s *C.char) C.int {
 // ========== Funciones String ==========
 
 //export StrLen
-func StrLen(s *C.char) C.int {
+func StrLen(s C.String) C.int {
 	return C.int(len(C.GoString(s)))
 }
 
 //export Substring
-func Substring(s *C.char, start, end C.int) *C.char {
+func Substring(s C.String, start, end C.int) C.String {
 	goStr := C.GoString(s)
 	goStart := int(start)
 	goEnd := int(end)
@@ -115,7 +117,7 @@ func Substring(s *C.char, start, end C.int) *C.char {
 }
 
 //export IsNumeric
-func IsNumeric(s *C.char) C.int {
+func IsNumeric(s C.String) C.int {
 	goStr := C.GoString(s)
 	_, err := strconv.ParseFloat(goStr, 64)
 	if err != nil {
@@ -125,10 +127,10 @@ func IsNumeric(s *C.char) C.int {
 }
 
 //export ConcatAll
-func ConcatAll(strs **C.char, count C.int) *C.char {
+func ConcatAll(strs *C.String, count C.int) C.String {
 	// Convertir el array de C a slice de Go
 	length := int(count)
-	tmpslice := (*[1 << 30]*C.char)(unsafe.Pointer(strs))[:length:length]
+	tmpslice := (*[1 << 30]C.String)(unsafe.Pointer(strs))[:length:length]
 	
 	goStrs := make([]string, length)
 	for i, s := range tmpslice {
@@ -140,25 +142,25 @@ func ConcatAll(strs **C.char, count C.int) *C.char {
 }
 
 //export ToUpperCase
-func ToUpperCase(s *C.char) *C.char {
+func ToUpperCase(s C.String) C.String {
 	goStr := C.GoString(s)
 	return C.CString(strings.ToUpper(goStr))
 }
 
 //export ToLowerCase
-func ToLowerCase(s *C.char) *C.char {
+func ToLowerCase(s C.String) C.String {
 	goStr := C.GoString(s)
 	return C.CString(strings.ToLower(goStr))
 }
 
 //export Trim
-func Trim(s *C.char) *C.char {
+func Trim(s C.String) C.String {
 	goStr := C.GoString(s)
 	return C.CString(strings.TrimSpace(goStr))
 }
 
 //export ReplaceAll
-func ReplaceAll(s, old, new *C.char) *C.char {
+func ReplaceAll(s, old, new C.String) C.String {
 	goStr := C.GoString(s)
 	goOld := C.GoString(old)
 	goNew := C.GoString(new)
@@ -172,12 +174,12 @@ func NewStringArray(size C.int) C.StringArray {
     goSize := int(size)
     
     // Allocate memory for the char* array
-    cArray := make([]*C.char, goSize)
+    cArray := make([]C.String, goSize)
     
     // Convert Go slice to C array
-    cArrayPtr := (**C.char)(C.malloc(C.size_t(goSize) * C.size_t(unsafe.Sizeof((*C.char)(nil)))))
+    cArrayPtr := (*C.String)(C.malloc(C.size_t(goSize) * C.size_t(unsafe.Sizeof((C.String)(nil)))))
     for i := range cArray {
-        *(*unsafe.Pointer)(unsafe.Pointer(uintptr(unsafe.Pointer(cArrayPtr)) + uintptr(i)*unsafe.Sizeof((*C.char)(nil)))) = 
+        *(*unsafe.Pointer)(unsafe.Pointer(uintptr(unsafe.Pointer(cArrayPtr)) + uintptr(i)*unsafe.Sizeof((C.String)(nil)))) = 
             unsafe.Pointer(cArray[i])
     }
     
@@ -189,7 +191,7 @@ func NewStringArray(size C.int) C.StringArray {
 }
 
 //export SetStringArrayValue
-func SetStringArrayValue(arr C.StringArray, index C.int, value *C.char) {
+func SetStringArrayValue(arr C.StringArray, index C.int, value C.String) {
     goIndex := int(index)
     
     if goIndex < 0 || goIndex >= int(arr.count) {
@@ -197,24 +199,24 @@ func SetStringArrayValue(arr C.StringArray, index C.int, value *C.char) {
     }
     
     // Liberamos el string anterior si existía
-    ptr := *(**C.char)(unsafe.Pointer(uintptr(unsafe.Pointer(arr.data)) + uintptr(goIndex)*unsafe.Sizeof((*C.char)(nil))))
+    ptr := *(*C.String)(unsafe.Pointer(uintptr(unsafe.Pointer(arr.data)) + uintptr(goIndex)*unsafe.Sizeof((C.String)(nil))))
     if ptr != nil {
         C.free(unsafe.Pointer(ptr))
     }
     
     // Asignamos el nuevo valor
-    *(**C.char)(unsafe.Pointer(uintptr(unsafe.Pointer(arr.data)) + uintptr(goIndex)*unsafe.Sizeof((*C.char)(nil)))) = C.CString(C.GoString(value))
+    *(*C.String)(unsafe.Pointer(uintptr(unsafe.Pointer(arr.data)) + uintptr(goIndex)*unsafe.Sizeof((C.String)(nil)))) = C.CString(C.GoString(value))
 }
 
 //export GetStringArrayValue
-func GetStringArrayValue(arr C.StringArray, index C.int) *C.char {
+func GetStringArrayValue(arr C.StringArray, index C.int) C.String {
     goIndex := int(index)
     
     if goIndex < 0 || goIndex >= int(arr.count) {
         return nil // Índice fuera de rango
     }
     
-    return *(**C.char)(unsafe.Pointer(uintptr(unsafe.Pointer(arr.data)) + uintptr(goIndex)*unsafe.Sizeof((*C.char)(nil))))
+    return *(*C.String)(unsafe.Pointer(uintptr(unsafe.Pointer(arr.data)) + uintptr(goIndex)*unsafe.Sizeof((C.String)(nil))))
 }
 
 //export GetStringArraySize
@@ -223,7 +225,7 @@ func GetStringArraySize(arr C.StringArray) C.int {
 }
 
 //export JoinStringArray
-func JoinStringArray(arr C.StringArray, delimiter *C.char) *C.char {
+func JoinStringArray(arr C.StringArray, delimiter C.String) C.String {
     goDelimiter := C.GoString(delimiter)
     var builder strings.Builder
     
@@ -231,7 +233,7 @@ func JoinStringArray(arr C.StringArray, delimiter *C.char) *C.char {
         if i > 0 {
             builder.WriteString(goDelimiter)
         }
-        ptr := *(**C.char)(unsafe.Pointer(uintptr(unsafe.Pointer(arr.data)) + uintptr(i)*unsafe.Sizeof((*C.char)(nil))))
+        ptr := *(*C.String)(unsafe.Pointer(uintptr(unsafe.Pointer(arr.data)) + uintptr(i)*unsafe.Sizeof((C.String)(nil))))
         if ptr != nil {
             builder.WriteString(C.GoString(ptr))
         }
@@ -241,7 +243,7 @@ func JoinStringArray(arr C.StringArray, delimiter *C.char) *C.char {
 }
 
 //export Split
-func Split(s *C.char, sep *C.char) C.StringArray {
+func Split(s C.String, sep C.String) C.StringArray {
     goStr := C.GoString(s)
     goSep := C.GoString(sep)
     
@@ -250,14 +252,14 @@ func Split(s *C.char, sep *C.char) C.StringArray {
     
     // Crear un StringArray en C
     arr := C.StringArray{
-        data:  (**C.char)(C.malloc(C.size_t(len(parts)) * C.size_t(unsafe.Sizeof((*C.char)(nil))))),
+        data:  (*C.String)(C.malloc(C.size_t(len(parts)) * C.size_t(unsafe.Sizeof((C.String)(nil))))),
         count: C.int(len(parts)),
     }
     
     // Convertir cada parte a C string y almacenar en el array
     for i, part := range parts {
         cStr := C.CString(part)
-        ptr := (**C.char)(unsafe.Pointer(uintptr(unsafe.Pointer(arr.data)) + uintptr(i)*unsafe.Sizeof((*C.char)(nil))))
+        ptr := (*C.String)(unsafe.Pointer(uintptr(unsafe.Pointer(arr.data)) + uintptr(i)*unsafe.Sizeof((C.String)(nil))))
         *ptr = cStr
     }
     
@@ -268,7 +270,7 @@ func Split(s *C.char, sep *C.char) C.StringArray {
 func FreeStringArray(arr C.StringArray) {
     // Liberamos cada string individual
     for i := 0; i < int(arr.count); i++ {
-        ptr := *(**C.char)(unsafe.Pointer(uintptr(unsafe.Pointer(arr.data)) + uintptr(i)*unsafe.Sizeof((*C.char)(nil))))
+        ptr := *(*C.String)(unsafe.Pointer(uintptr(unsafe.Pointer(arr.data)) + uintptr(i)*unsafe.Sizeof((C.String)(nil))))
         if ptr != nil {
             C.free(unsafe.Pointer(ptr))
         }
@@ -279,7 +281,7 @@ func FreeStringArray(arr C.StringArray) {
 }
 
 //export FreeString
-func FreeString(s *C.char) {
+func FreeString(s C.String) {
     C.free(unsafe.Pointer(s))
 }
 

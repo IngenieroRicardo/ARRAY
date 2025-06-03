@@ -26,14 +26,16 @@ typedef struct { const char *p; ptrdiff_t n; } _GoString_;
 #include <stdio.h>
 #include <stdarg.h>
 
+typedef char* String; // Definimos String como alias de char*
+
 typedef struct {
-    char** data;
+    String* data;
     int count;
 } StringArray;
 
-static char* Concat(char *first, ...) {
+static String Concat(String first, ...) {
     va_list args;
-    char *token;
+    String token;
     size_t total_len = 0;
     
     // 1. Calcular longitud total necesaria
@@ -41,12 +43,12 @@ static char* Concat(char *first, ...) {
     token = first;
     while(token != NULL) {
         total_len += strlen(token);
-        token = va_arg(args, char*);
+        token = va_arg(args, String);
     }
     va_end(args);
     
     // 2. Reservar memoria (incluyendo espacio para \0)
-    char *result = malloc(total_len + 1);
+    String result = malloc(total_len + 1);
     if(result == NULL) return NULL;
     result[0] = '\0';
     
@@ -55,7 +57,7 @@ static char* Concat(char *first, ...) {
     token = first;
     while(token != NULL) {
         strcat(result, token);
-        token = va_arg(args, char*);
+        token = va_arg(args, String);
     }
     va_end(args);
     
@@ -140,27 +142,27 @@ extern __declspec(dllexport) StringArray Split(char* s, char* sep);
 extern __declspec(dllexport) void FreeStringArray(StringArray arr);
 extern __declspec(dllexport) void FreeString(char* s);
 #else 
-extern int Atoi(char* s);
-extern double Atof(char* s);
-extern char* Itoa(int n);
-extern char* Ftoa(double f, int precision);
-extern int ParseBool(char* s);
-extern int StrLen(char* s);
-extern char* Substring(char* s, int start, int end);
-extern int IsNumeric(char* s);
-extern char* ConcatAll(char** strs, int count);
-extern char* ToUpperCase(char* s);
-extern char* ToLowerCase(char* s);
-extern char* Trim(char* s);
-extern char* ReplaceAll(char* s, char* old, char* new);
+extern int Atoi(String s);
+extern double Atof(String s);
+extern String Itoa(int n);
+extern String Ftoa(double f, int precision);
+extern int ParseBool(String s);
+extern int StrLen(String s);
+extern String Substring(String s, int start, int end);
+extern int IsNumeric(String s);
+extern String ConcatAll(String* strs, int count);
+extern String ToUpperCase(String s);
+extern String ToLowerCase(String s);
+extern String Trim(String s);
+extern String ReplaceAll(String s, String old, String new);
 extern StringArray NewStringArray(int size);
-extern void SetStringArrayValue(StringArray arr, int index, char* value);
-extern char* GetStringArrayValue(StringArray arr, int index);
+extern void SetStringArrayValue(StringArray arr, int index, String value);
+extern String GetStringArrayValue(StringArray arr, int index);
 extern int GetStringArraySize(StringArray arr);
-extern char* JoinStringArray(StringArray arr, char* delimiter);
-extern StringArray Split(char* s, char* sep);
+extern String JoinStringArray(StringArray arr, String delimiter);
+extern StringArray Split(String s, String sep);
 extern void FreeStringArray(StringArray arr);
-extern void FreeString(char* s);
+extern void FreeString(String s);
 #endif
 
 #ifdef __cplusplus
