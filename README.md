@@ -8,8 +8,8 @@ Librería en C para manipular Arreglos de Caracteres
 
 | Linux | Windows |
 | --- | --- |
-| `wget https://raw.githubusercontent.com/IngenieroRicardo/STRING/refs/heads/main/STRING.so` | `Invoke-WebRequest https://raw.githubusercontent.com/IngenieroRicardo/STRING/refs/heads/main/STRING.dll -OutFile ./STRING.dll` |
-| `wget https://raw.githubusercontent.com/IngenieroRicardo/STRING/refs/heads/main/STRING.h` | `Invoke-WebRequest https://raw.githubusercontent.com/IngenieroRicardo/STRING/refs/heads/main/STRING.h -OutFile ./STRING.h` |
+| `wget https://github.com/IngenieroRicardo/STRING/releases/download/1.0/STRING.so` | `Invoke-WebRequest https://github.com/IngenieroRicardo/STRING/releases/download/1.0/STRING.dll -OutFile ./STRING.dll` |
+| `wget https://github.com/IngenieroRicardo/STRING/releases/download/1.0/STRING.h` | `Invoke-WebRequest https://github.com/IngenieroRicardo/STRING/releases/download/1.0/STRING.h -OutFile ./STRING.h` |
 
 ---
 
