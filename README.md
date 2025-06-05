@@ -174,7 +174,7 @@ int main() {
 - `int StrLen(char* s)`: Obtiene longitud del string
 - `char* Substring(char* s, int start, int end)`: Extrae un string mediante indices
 - `IsNumeric(char* s)`: Valida si es un valor numerico
-- `char* ConcatAll(char** strs, int count)`: Concatena todos los string del array
+- `char* ConcatAll(char** strs)`: Concatena todos los string del array
 - `char* ToUpperCase(char* s);`: Convierte en mayusculas todos los caracteres
 - `char* ToLowerCase(char* s)`: Convierte en minusculas todos los caracteres
 - `char* Trim(char* s)`: Quita los espacios en blanco al inicio y final de un string
@@ -191,12 +191,5 @@ int main() {
 - `void FreeString(char* s)`: Libera memoria
 - `void FreeStringArray(StringArray arr)`: Libera memoria de arrays
 
-### Estructuras
-```c
-typedef struct {
-    char** data;     // Array de elementos
-    int count;        // Número de elementos
-} StringArray;
-```
 
 ---
