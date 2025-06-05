@@ -7,11 +7,7 @@ package main
 #include <stdarg.h>
 
 typedef char* String; // Definimos String como alias de char*
-
-typedef struct {
-    String* data;
-    int count;
-} StringArray;
+typedef char** StringArray; // Definimos String como alias de char*
 
 static String Concat(String first, ...) {
     va_list args;
@@ -127,18 +123,27 @@ func IsNumeric(s C.String) C.int {
 }
 
 //export ConcatAll
-func ConcatAll(strs *C.String, count C.int) C.String {
-	// Convertir el array de C a slice de Go
-	length := int(count)
-	tmpslice := (*[1 << 30]C.String)(unsafe.Pointer(strs))[:length:length]
-	
-	goStrs := make([]string, length)
-	for i, s := range tmpslice {
-		goStrs[i] = C.GoString(s)
-	}
-	
-	result := strings.Join(goStrs, "")
-	return C.CString(result)
+func ConcatAll(strs **C.char) *C.char {
+    if strs == nil {
+        return C.CString("")
+    }
+
+    // Convert C string array to Go []string
+    var goStrings []string
+    for i := 0; ; i++ {
+        // Get pointer to the i-th string
+        ptr := (**C.char)(unsafe.Pointer(uintptr(unsafe.Pointer(strs)) + uintptr(i)*unsafe.Sizeof(strs)))
+        if *ptr == nil {
+            break
+        }
+        goStrings = append(goStrings, C.GoString(*ptr))
+    }
+
+    // Join all strings
+    result := strings.Join(goStrings, "")
+
+    // Return as C string (caller must free this)
+    return C.CString(result)
 }
 
 //export ToUpperCase
@@ -167,118 +172,142 @@ func ReplaceAll(s, old, new C.String) C.String {
 	return C.CString(strings.ReplaceAll(goStr, goOld, goNew))
 }
 
+
+
+
+
+
+//export Equals
+func Equals(s1 *C.char, s2 *C.char) C.int {
+    // Convert C strings to Go strings
+    goStr1 := C.GoString(s1)
+    goStr2 := C.GoString(s2)
+    
+    // Compare the strings
+    if goStr1 == goStr2 {
+        return C.int(1)  // true
+    }
+    return C.int(0)       // false
+}
+
+
+//export Contains
+func Contains(s *C.char, substr *C.char) C.int {
+    // Convert C strings to Go strings
+    goStr := C.GoString(s)
+    goSubstr := C.GoString(substr)
+    
+    // Check if string contains substring
+    if strings.Contains(goStr, goSubstr) {
+        return C.int(1)  // true
+    }
+    return C.int(0)      // false
+}
+
+
 // ========== Funciones StringArray ==========
 
+
+
+
 //export NewStringArray
-func NewStringArray(size C.int) C.StringArray {
-    goSize := int(size)
-    
-    // Allocate memory for the char* array
-    cArray := make([]C.String, goSize)
-    
-    // Convert Go slice to C array
-    cArrayPtr := (*C.String)(C.malloc(C.size_t(goSize) * C.size_t(unsafe.Sizeof((C.String)(nil)))))
-    for i := range cArray {
-        *(*unsafe.Pointer)(unsafe.Pointer(uintptr(unsafe.Pointer(cArrayPtr)) + uintptr(i)*unsafe.Sizeof((C.String)(nil)))) = 
-            unsafe.Pointer(cArray[i])
+func NewStringArray(size C.int) **C.char {
+    if size <= 0 {
+        return nil
     }
-    
-    // Create and return the StringArray structure by value
-    return C.StringArray{
-        data:  cArrayPtr,
-        count: C.int(goSize),
+
+    // Calculate total memory needed (size elements + NULL terminator)
+    elementSize := unsafe.Sizeof((*C.char)(nil))
+    totalSize := uintptr(size+1) * elementSize
+
+    // Allocate memory
+    ptr := C.malloc(C.size_t(totalSize))
+    if ptr == nil {
+        return nil
     }
+
+    // Zero out the memory (sets all pointers to NULL)
+    C.memset(ptr, 0, C.size_t(totalSize))
+
+    return (**C.char)(ptr)
 }
 
-//export SetStringArrayValue
-func SetStringArrayValue(arr C.StringArray, index C.int, value C.String) {
-    goIndex := int(index)
-    
-    if goIndex < 0 || goIndex >= int(arr.count) {
-        return // Índice fuera de rango
-    }
-    
-    // Liberamos el string anterior si existía
-    ptr := *(*C.String)(unsafe.Pointer(uintptr(unsafe.Pointer(arr.data)) + uintptr(goIndex)*unsafe.Sizeof((C.String)(nil))))
-    if ptr != nil {
-        C.free(unsafe.Pointer(ptr))
-    }
-    
-    // Asignamos el nuevo valor
-    *(*C.String)(unsafe.Pointer(uintptr(unsafe.Pointer(arr.data)) + uintptr(goIndex)*unsafe.Sizeof((C.String)(nil)))) = C.CString(C.GoString(value))
-}
 
-//export GetStringArrayValue
-func GetStringArrayValue(arr C.StringArray, index C.int) C.String {
-    goIndex := int(index)
-    
-    if goIndex < 0 || goIndex >= int(arr.count) {
-        return nil // Índice fuera de rango
-    }
-    
-    return *(*C.String)(unsafe.Pointer(uintptr(unsafe.Pointer(arr.data)) + uintptr(goIndex)*unsafe.Sizeof((C.String)(nil))))
-}
-
-//export GetStringArraySize
-func GetStringArraySize(arr C.StringArray) C.int {
-    return arr.count
-}
-
-//export JoinStringArray
-func JoinStringArray(arr C.StringArray, delimiter C.String) C.String {
-    goDelimiter := C.GoString(delimiter)
-    var builder strings.Builder
-    
-    for i := 0; i < int(arr.count); i++ {
-        if i > 0 {
-            builder.WriteString(goDelimiter)
-        }
-        ptr := *(*C.String)(unsafe.Pointer(uintptr(unsafe.Pointer(arr.data)) + uintptr(i)*unsafe.Sizeof((C.String)(nil))))
-        if ptr != nil {
-            builder.WriteString(C.GoString(ptr))
-        }
-    }
-    
-    return C.CString(builder.String())
-}
 
 //export Split
-func Split(s C.String, sep C.String) C.StringArray {
+func Split(s *C.char, sep *C.char) **C.char {
     goStr := C.GoString(s)
     goSep := C.GoString(sep)
     
-    // Dividir el string en partes
     parts := strings.Split(goStr, goSep)
     
-    // Crear un StringArray en C
-    arr := C.StringArray{
-        data:  (*C.String)(C.malloc(C.size_t(len(parts)) * C.size_t(unsafe.Sizeof((C.String)(nil))))),
-        count: C.int(len(parts)),
+    // Allocate the array (size + 1 for NULL terminator)
+    arr := (**C.char)(C.malloc(C.size_t(len(parts)+1) * C.size_t(unsafe.Sizeof((*C.char)(nil)))))
+    if arr == nil {
+        return nil
     }
     
-    // Convertir cada parte a C string y almacenar en el array
+    // Initialize with NULLs (especially the last element)
+    C.memset(unsafe.Pointer(arr), 0, C.size_t(len(parts)+1)*C.size_t(unsafe.Sizeof((*C.char)(nil))))
+    
+    // Convert each part to C string and store in the array
     for i, part := range parts {
         cStr := C.CString(part)
-        ptr := (*C.String)(unsafe.Pointer(uintptr(unsafe.Pointer(arr.data)) + uintptr(i)*unsafe.Sizeof((C.String)(nil))))
+        ptr := (**C.char)(unsafe.Pointer(uintptr(unsafe.Pointer(arr)) + uintptr(i)*unsafe.Sizeof((*C.char)(nil))))
         *ptr = cStr
     }
     
     return arr
 }
 
-//export FreeStringArray
-func FreeStringArray(arr C.StringArray) {
-    // Liberamos cada string individual
-    for i := 0; i < int(arr.count); i++ {
-        ptr := *(*C.String)(unsafe.Pointer(uintptr(unsafe.Pointer(arr.data)) + uintptr(i)*unsafe.Sizeof((C.String)(nil))))
-        if ptr != nil {
-            C.free(unsafe.Pointer(ptr))
+//export GetStringArraySize
+func GetStringArraySize(arr **C.char) C.int {
+    var count C.int = 0
+
+    // Convertimos arr en un puntero a punteros y lo recorremos hasta NULL
+    for {
+        // offset para acceder al elemento arr[i]
+        ptr := *(**C.char)(unsafe.Pointer(uintptr(unsafe.Pointer(arr)) + uintptr(count)*unsafe.Sizeof(*arr)))
+        if ptr == nil {
+            break
         }
+        count++
     }
-    
-    // Liberamos el array de punteros
-    C.free(unsafe.Pointer(arr.data))
+
+    return count
 }
+
+//export FreeStringArray
+func FreeStringArray(arr **C.char) {
+    if arr == nil {
+        return
+    }
+
+    // Recorremos hasta NULL
+    for i := 0; ; i++ {
+        // Obtener puntero al string en la posición i
+        ptr := *(**C.char)(unsafe.Pointer(uintptr(unsafe.Pointer(arr)) + uintptr(i)*unsafe.Sizeof(*arr)))
+        if ptr == nil {
+            break
+        }
+        // Liberar cada string
+        C.free(unsafe.Pointer(ptr))
+    }
+
+    // Liberar el arreglo de punteros
+    C.free(unsafe.Pointer(arr))
+}
+
+
+
+
+
+
+
+
+
+
+
 
 //export FreeString
 func FreeString(s C.String) {
