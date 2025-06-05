@@ -183,13 +183,9 @@ int main() {
 - `int Contains(char* s, char* substr)`: Busca coincidencias en de string
 
 #### StringArray
-- `StringArray NewStringArray(int size)`: Crea objeto StringArray vacío
-- `void SetStringArrayValue(StringArray arr, int index, char* value)`
-- `char* GetStringArrayValue(StringArray arr, int index)`
-- `int GetStringArraySize(StringArray arr)`
-- `char* JoinStringArray(StringArray arr, char* delimiter)`
-- `StringArray Split(char* s, char* sep)`: Convierte un string en StringArray por un separador
-- `JsonResult MergeJSON(const char* json1, const char* json2)`: Combina dos JSONs
+- `char** NewStringArray(int count)`: Crea objeto StringArray vacío
+- `char** Split(char* s, char* sep)`: Convierte un string en StringArray por un separador
+- `int GetStringArraySize(char** arr)`: Obtiene el tamaño de un StringArray
 
 #### Utilidades
 - `void FreeString(char* s)`: Libera memoria
