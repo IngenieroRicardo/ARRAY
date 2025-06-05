@@ -1,6 +1,7 @@
 # STRING
 
-Librería en C para manipular Arreglos de Caracteres
+Librería en C para manipular Arreglos de Caracteres  
+Compilada usando: `go build -o STRING.dll -buildmode=c-shared STRING.go`
 
 ---
 
