@@ -179,6 +179,8 @@ int main() {
 - `char* ToLowerCase(char* s)`: Convierte en minusculas todos los caracteres
 - `char* Trim(char* s)`: Quita los espacios en blanco al inicio y final de un string
 - `char* ReplaceAll(char* s, char* old, char* new)`: Reemplaza una string dentro de otro string
+- `int Equals(char* s1, char* s2)`: Compara dos string
+- `int Contains(char* s, char* substr)`: Busca coincidencias en de string
 
 #### StringArray
 - `StringArray NewStringArray(int size)`: Crea objeto StringArray vacío
