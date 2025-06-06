@@ -160,7 +160,6 @@ int main() {
 
 
 ## 📚 Documentación de la API
-### Funciones Principales
 
 #### Definiciones de tipos de variables equivalentes
 - ` char* = String `
