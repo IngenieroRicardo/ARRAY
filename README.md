@@ -69,7 +69,34 @@ int main() {
 ### 🧪 Ejemplo 2
 
 ```C
+#include <stdio.h>
+#include "array.h"
 
+int main() {
+    // Crear y llenar array
+    StringArray arr = NewStringArray(3);
+    arr[0] = strdup("Primero");
+    arr[1] = strdup("Segundo");
+    arr[2] = strdup("Tercero");
+    
+    // Procesar array
+    printf("Array size: %d\n", GetStringArraySize(arr));
+    char* joined = ConcatAll(arr);
+    printf("Joined: %s\n", joined);
+    
+    // Split de strings
+    StringArray parts = Split("uno,dos,tres", ",");
+    for (int i = 0; parts[i] != NULL; i++) {
+        printf("Part %d: %s\n", i, parts[i]);
+    }
+    
+    // Liberar memoria
+    FreeString(joined);
+    FreeStringArray(arr);
+    FreeStringArray(parts);
+
+    return 0;
+}
 ```
 
 ### 🧪 Ejemplo 3
