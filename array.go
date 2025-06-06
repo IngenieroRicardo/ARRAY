@@ -84,6 +84,19 @@ func ParseBool(str C.String) C.int {
 	return 0
 }
 
+//export NewString
+func NewString(size C.int) *C.char {
+    if size <= 0 {
+        return nil
+    }
+    ptr := C.malloc(C.size_t(size + 1))
+    if ptr == nil {
+        return nil
+    }
+    C.memset(ptr, 0, C.size_t(size + 1))
+    return (*C.char)(ptr)
+}
+
 //export GetStringSize
 func GetStringSize(str C.String) C.int {
 	return C.int(len(C.GoString(str)))
