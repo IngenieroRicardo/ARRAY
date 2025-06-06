@@ -62,7 +62,7 @@ FALTA: - ` int* = IntArray `
 
 #### IntArray
 
-FALTA: - `int SumAll(int* ints)`: Suma todos los int del array.
+FALTA: - `int* NewIntArray(int size)`: Crea int array vacío.
 
 #### String
 - `int Contains(char* str, char* substr)`: Busca coincidencias dentro del string.
