@@ -60,14 +60,19 @@ FALTA: - ` int* = IntArray `
 - `char* Ftoa(double flo, int precision)`: Convierte decimal a string, especificadon decimales.
 
 #### IntArray
+
 FALTA: - `int GetIntArraySize(int* ints)`: Obtiene longitud del int array.
+
 FALTA: - `int SumaAll(int* ints)`: Suma todos los int del array.
+
 FALTA: - `char** NewIntArray(int size)`: Crea int array vacío.
 
 #### String
 - `int Contains(char* str, char* substr)`: Busca coincidencias dentro del string.
 - `int Equals(char* str1, char* str2)`: Compara dos string.
+
 MODIFICAR: - `int GetStringSize(char* str)`: Obtiene longitud del string.
+
 - `int IsNumeric(char* str)`: Valida si el string es numero.
 - `char* SubString(char* str, int start, int end)`: Extrae string mediante índices.
 - `char* ToLowerCase(char* str)`: Convierte el string a minúsculas.
