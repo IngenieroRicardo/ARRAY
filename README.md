@@ -67,7 +67,6 @@ Para compilar la librería: `go build -o array.dll -buildmode=c-shared array.go`
 - `int Contains(char* str, char* substr)`: Busca coincidencias dentro del string.
 - `int Equals(char* str1, char* str2)`: Compara dos string.
 - `int GetStringSize(char* str)`: Obtiene longitud del string.
-
 - `int IsNumeric(char* str)`: Valida si el string es numero.
 - `char* SubString(char* str, int start, int end)`: Extrae string mediante índices.
 - `char* ToLowerCase(char* str)`: Convierte el string a minúsculas.
