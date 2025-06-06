@@ -166,6 +166,7 @@ int main() {
 #### Definiciones de tipos de variables equivalentes
 - ` char* = String `
 - ` char** = StringArray `
+- ` int* = IntArray `
 
 #### Conversiones
 - `int Atoi(char* str)`: Conviere string a entero
@@ -173,6 +174,11 @@ int main() {
 - `double Atof(char* str)`: Conviere string a decimal
 - `char* Itoa(int n)`: Conviere entero a string
 - `char* Ftoa(double flo, int precision)`: Conviere decimal a string, especificadon decimales
+
+#### IntArray
+- `int GetIntArraySize(int* ints)`: Obtiene longitud del int array
+- `int SumaAll(int* ints)`: Suma todos los int del array
+- `char** NewIntArray(int size)`: Crea int array vacío
 
 #### String
 - `int Contains(char* str, char* substr)`: Busca coincidencias dentro del string
