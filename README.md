@@ -50,8 +50,8 @@ Para compilar la librería: `go build -o array.dll -buildmode=c-shared array.go`
 #### Definiciones de tipos de variables equivalentes
 - ` char* = String `
 - ` char** = StringArray `
-
-FALTA: - ` int* = IntArray ` 
+- ` int* = IntArray `
+- ` double* = DoubleArray `
 
 #### Conversiones
 - `int Atoi(char* str)`: Convierte string a entero.
@@ -61,14 +61,12 @@ FALTA: - ` int* = IntArray `
 - `char* Ftoa(double flo, int precision)`: Convierte decimal a string, especificadon decimales.
 
 #### IntArray
-
-FALTA: - `int* NewIntArray(int size)`: Crea int array vacío.
+- `int* NewIntArray(int size)`: Crea int array vacío.
 
 #### String
 - `int Contains(char* str, char* substr)`: Busca coincidencias dentro del string.
 - `int Equals(char* str1, char* str2)`: Compara dos string.
-
-MODIFICAR: - `int GetStringSize(char* str)`: Obtiene longitud del string.
+- `int GetStringSize(char* str)`: Obtiene longitud del string.
 
 - `int IsNumeric(char* str)`: Valida si el string es numero.
 - `char* SubString(char* str, int start, int end)`: Extrae string mediante índices.
@@ -86,5 +84,7 @@ MODIFICAR: - `int GetStringSize(char* str)`: Obtiene longitud del string.
 #### Liberar memoria
 - `void FreeString(char* str)`
 - `void FreeStringArray(char** strs)`
+- `void FreeIntArray(int* ints)`
+- `void FreeDoubleArray(double* flos)`
 
 ---
