@@ -151,9 +151,11 @@ int main() {
 
 #### IntArray
 - `int* NewIntArray(int size)`: Crea int array vacío.
+- `void FreeIntArray(int* ints)`
 
 #### DoubleArray
 - `double* NewDoubleArray(int size)`: Crea double array vacío.
+- `void FreeDoubleArray(double* flos)`
 
 #### String
 - `int Contains(char* str, char* substr)`: Busca coincidencias dentro del string.
@@ -165,17 +167,13 @@ int main() {
 - `char* ToUpperCase(char* str);`: Convierte el string a mayúsculas.
 - `char* Trim(char* str)`: Elimina los espacios en blanco al inicio y al final del string.
 - `char* ReplaceAll(char* str, char* old, char* new)`: Reemplaza un string dentro de otro.
+- `void FreeString(char* str)`
 
 #### StringArray
 - `int GetStringArraySize(char** strs)`: Obtiene longitud del string array.
 - `char* ConcatAll(char** strs)`: Concatena todos los string del array.
 - `char** Split(char* str, char* sep)`: Convierte string a string array por un separador.
 - `char** NewStringArray(int size)`: Crea string array vacío.
-
-#### Liberar memoria
-- `void FreeIntArray(int* ints)`
-- `void FreeDoubleArray(double* flos)`
-- `void FreeString(char* str)`
 - `void FreeStringArray(char** strs)`
 
 ---
