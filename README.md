@@ -1,7 +1,7 @@
-# ARRAY
+# array
 
 Librería en C para manipular Arreglos  
-Compilar la libreria: `go build -o ARRAY.DLL -buildmode=c-shared ARRAY.GO`
+Compilar la libreria: `go build -o array.dll -buildmode=c-shared array.go`
 
 ---
 
@@ -9,8 +9,8 @@ Compilar la libreria: `go build -o ARRAY.DLL -buildmode=c-shared ARRAY.GO`
 
 | Linux | Windows |
 | --- | --- |
-| `wget https://github.com/IngenieroRicardo/ARRAY/releases/download/1.0/ARRAY.SO` | `Invoke-WebRequest https://github.com/IngenieroRicardo/ARRAY/releases/download/1.0/ARRAY.DLL -OutFile ./ARRAY.DLL` |
-| `wget https://github.com/IngenieroRicardo/ARRAY/releases/download/1.0/ARRAY.H` | `Invoke-WebRequest https://github.com/IngenieroRicardo/ARRAY/releases/download/1.0/ARRAY.H -OutFile ./ARRAY.H` |
+| `wget https://github.com/IngenieroRicardo/array/releases/download/1.0/array.so` | `Invoke-WebRequest https://github.com/IngenieroRicardo/array/releases/download/1.0/array.dll -OutFile ./array.dll` |
+| `wget https://github.com/IngenieroRicardo/array/releases/download/1.0/array.h` | `Invoke-WebRequest https://github.com/IngenieroRicardo/array/releases/download/1.0/array.h -OutFile ./array.h` |
 
 ---
 
@@ -18,8 +18,8 @@ Compilar la libreria: `go build -o ARRAY.DLL -buildmode=c-shared ARRAY.GO`
 
 | Linux | Windows |
 | --- | --- |
-| `gcc -o main.bin main.c ./ARRAY.SO` | `gcc -o main.exe main.c ./ARRAY.DLL` |
-| `x86_64-w64-mingw32-gcc -o main.exe main.c ./ARRAY.DLL` |  |
+| `gcc -o main.bin main.c ./array.so` | `gcc -o main.exe main.c ./array.dll` |
+| `x86_64-w64-mingw32-gcc -o main.exe main.c ./array.dll` |  |
 
 ---
 
@@ -27,7 +27,7 @@ Compilar la libreria: `go build -o ARRAY.DLL -buildmode=c-shared ARRAY.GO`
 
 ```C
 #include <stdio.h>
-#include "ARRAY.H"
+#include "array.h"
 
 int main() {
     // Conversión de tipos
@@ -73,7 +73,7 @@ int main() {
 
 ```C
 #include <stdio.h>
-#include "ARRAY.H"
+#include "array.h"
 
 int main() {
     // Crear un array de strings
@@ -114,7 +114,7 @@ int main() {
 
 ```C
 #include <stdio.h>
-#include "ARRAY.H"
+#include "array.h"
 
 int main() {
     // Concatenación básica con Concat
