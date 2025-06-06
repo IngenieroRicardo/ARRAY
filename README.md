@@ -163,37 +163,37 @@ int main() {
 
 ### Funciones Principales
 
-#### Definiciones de tipo de Variables equivalentes
-- `String = char* `
-- `StringArray = char** `
+#### Definiciones de tipos de variables equivalentes
+- ` char* = String `
+- ` char** = StringArray `
 
 #### Conversiones
-- `int Atoi(char* s)`: Conviere una cadena de caracteres a entero
-- `double Atof(char* s)`: Conviere una cadena de caracteres a decimal
-- `char* Itoa(int n)`: Conviere un entero a cadena de caracteres
-- `char* Ftoa(double f, int precision)`: Conviere una decimal a cadena de caracteres, especificadon decimales
-- `int ParseBool(char* s)`: Conviere una cadena de caracteres booleana a entero
+- `int Atoi(char* str)`: Conviere string a entero
+- `int ParseBool(char* str)`: Conviere string a booleano
+- `double Atof(char* str)`: Conviere string a decimal
+- `char* Itoa(int n)`: Conviere entero a string
+- `char* Ftoa(double flo, int precision)`: Conviere decimal a string, especificadon decimales
 
 #### String
-- `int StrLen(char* s)`: Obtiene longitud del string
-- `char* Substring(char* s, int start, int end)`: Extrae un string mediante indices
-- `IsNumeric(char* s)`: Valida si es un valor numerico
-- `char* ConcatAll(char** strs)`: Concatena todos los string del array
-- `char* ToUpperCase(char* s);`: Convierte en mayusculas todos los caracteres
-- `char* ToLowerCase(char* s)`: Convierte en minusculas todos los caracteres
-- `char* Trim(char* s)`: Quita los espacios en blanco al inicio y final de un string
-- `char* ReplaceAll(char* s, char* old, char* new)`: Reemplaza una string dentro de otro string
-- `int Equals(char* s1, char* s2)`: Compara dos string
-- `int Contains(char* s, char* substr)`: Busca coincidencias en de string
+- `int Contains(char* str, char* substr)`: Busca coincidencias dentro del string
+- `int Equals(char* str1, char* str2)`: Compara dos string
+- `int GetStringSize(char* str)`: Obtiene longitud del string
+- `int IsNumeric(char* str)`: Valida si el string es numero
+- `char* SubString(char* str, int start, int end)`: Extrae string mediante indices
+- `char* ToLowerCase(char* str)`: Convierte en minusculas el string
+- `char* ToUpperCase(char* str);`: Convierte en mayusculas el string
+- `char* Trim(char* str)`: Quita los espacios en blanco al inicio y final del string
+- `char* ReplaceAll(char* str, char* old, char* new)`: Reemplaza una string dentro de otro string
 
 #### StringArray
-- `char** NewStringArray(int count)`: Crea objeto StringArray vacío
-- `char** Split(char* s, char* sep)`: Convierte un string en StringArray por un separador
-- `int GetStringArraySize(char** arr)`: Obtiene el tamaño de un StringArray
+- `int GetStringArraySize(char** strs)`: Obtiene longitud del string array
+- `char* ConcatAll(char** strs)`: Concatena todos los string del array
+- `char** Split(char* str, char* sep)`: Convierte string a string array por un separador
+- `char** NewStringArray(int size)`: Crea string array vacío
 
 #### Utilidades
-- `void FreeString(char* s)`: Libera memoria
-- `void FreeStringArray(StringArray arr)`: Libera memoria de arrays
+- `void FreeString(char* str)`: Libera memoria de string
+- `void FreeStringArray(char** strs)`: Libera memoria de string array
 
 
 ---
