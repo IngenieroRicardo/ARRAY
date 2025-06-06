@@ -160,7 +160,6 @@ int main() {
 
 
 ## 📚 Documentación de la API
-
 ### Funciones Principales
 
 #### Definiciones de tipos de variables equivalentes
@@ -200,6 +199,5 @@ int main() {
 #### Utilidades
 - `void FreeString(char* str)`: Libera memoria de string
 - `void FreeStringArray(char** strs)`: Libera memoria de string array
-
 
 ---
