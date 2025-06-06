@@ -1,7 +1,7 @@
-# STRING
+# ARRAY
 
-Librería en C para manipular Arreglos de Caracteres  
-Compilada usando: `go build -o STRING.dll -buildmode=c-shared STRING.go`
+Librería en C para manipular Arreglos  
+Compilar la libreria: `go build -o ARRAY.DLL -buildmode=c-shared STRING.GO`
 
 ---
 
@@ -9,8 +9,8 @@ Compilada usando: `go build -o STRING.dll -buildmode=c-shared STRING.go`
 
 | Linux | Windows |
 | --- | --- |
-| `wget https://github.com/IngenieroRicardo/STRING/releases/download/1.0/STRING.so` | `Invoke-WebRequest https://github.com/IngenieroRicardo/STRING/releases/download/1.0/STRING.dll -OutFile ./STRING.dll` |
-| `wget https://github.com/IngenieroRicardo/STRING/releases/download/1.0/STRING.h` | `Invoke-WebRequest https://github.com/IngenieroRicardo/STRING/releases/download/1.0/STRING.h -OutFile ./STRING.h` |
+| `wget https://github.com/IngenieroRicardo/ARRAY/releases/download/1.0/ARRAY.SO` | `Invoke-WebRequest https://github.com/IngenieroRicardo/ARRAY/releases/download/1.0/ARRAY.DLL -OutFile ./ARRAY.DLL` |
+| `wget https://github.com/IngenieroRicardo/ARRAY/releases/download/1.0/ARRAY.H` | `Invoke-WebRequest https://github.com/IngenieroRicardo/ARRAY/releases/download/1.0/ARRAY.H -OutFile ./ARRAY.H` |
 
 ---
 
@@ -18,8 +18,8 @@ Compilada usando: `go build -o STRING.dll -buildmode=c-shared STRING.go`
 
 | Linux | Windows |
 | --- | --- |
-| `gcc -o main.bin main.c ./STRING.so` | `gcc -o main.exe main.c ./STRING.dll` |
-| `x86_64-w64-mingw32-gcc -o main.exe main.c ./STRING.dll` |  |
+| `gcc -o main.bin main.c ./ARRAY.SO` | `gcc -o main.exe main.c ./ARRAY.DLL` |
+| `x86_64-w64-mingw32-gcc -o main.exe main.c ./ARRAY.DLL` |  |
 
 ---
 
@@ -27,7 +27,7 @@ Compilada usando: `go build -o STRING.dll -buildmode=c-shared STRING.go`
 
 ```C
 #include <stdio.h>
-#include "STRING.h"
+#include "ARRAY.H"
 
 int main() {
     // Conversión de tipos
@@ -73,7 +73,7 @@ int main() {
 
 ```C
 #include <stdio.h>
-#include "STRING.h"
+#include "ARRAY.H"
 
 int main() {
     // Crear un array de strings
@@ -114,7 +114,7 @@ int main() {
 
 ```C
 #include <stdio.h>
-#include "STRING.h"
+#include "ARRAY.H"
 
 int main() {
     // Concatenación básica con Concat
