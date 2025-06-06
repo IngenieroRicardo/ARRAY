@@ -1,7 +1,7 @@
 # ARRAY
 
 Librería en C para manipular Arreglos  
-Compilar la libreria: `go build -o ARRAY.DLL -buildmode=c-shared STRING.GO`
+Compilar la libreria: `go build -o ARRAY.DLL -buildmode=c-shared ARRAY.GO`
 
 ---
 
