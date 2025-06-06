@@ -50,6 +50,7 @@ Para compilar la librería: `go build -o array.dll -buildmode=c-shared array.go`
 #### Definiciones de tipos de variables equivalentes
 - ` char* = String `
 - ` char** = StringArray `
+
 FALTA: - ` int* = IntArray ` 
 
 #### Conversiones
@@ -77,7 +78,7 @@ MODIFICAR: - `int GetStringSize(char* str)`: Obtiene longitud del string.
 - `char* SubString(char* str, int start, int end)`: Extrae string mediante índices.
 - `char* ToLowerCase(char* str)`: Convierte el string a minúsculas.
 - `char* ToUpperCase(char* str);`: Convierte el string a mayúsculas.
-- `char* Trim(char* str)`: Quita los espacios en blanco al inicio y final del string.
+- `char* Trim(char* str)`: Elimina los espacios en blanco al inicio y al final del string.
 - `char* ReplaceAll(char* str, char* old, char* new)`: Reemplaza un string dentro de otro.
 
 #### StringArray
