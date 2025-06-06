@@ -163,6 +163,10 @@ int main() {
 
 ### Funciones Principales
 
+#### Definiciones de tipo de Variables equivalentes
+- `String = char* `
+- `StringArray = char** `
+
 #### Conversiones
 - `int Atoi(char* s)`: Conviere una cadena de caracteres a entero
 - `double Atof(char* s)`: Conviere una cadena de caracteres a decimal
