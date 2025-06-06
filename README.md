@@ -195,8 +195,8 @@ int main() {
 - `char** Split(char* str, char* sep)`: Convierte string a string array por un separador
 - `char** NewStringArray(int size)`: Crea string array vacío
 
-#### Utilidades
-- `void FreeString(char* str)`: Libera memoria de string
-- `void FreeStringArray(char** strs)`: Libera memoria de string array
+#### Liberar Memoria
+- `void FreeString(char* str)`
+- `void FreeStringArray(char** strs)`
 
 ---
