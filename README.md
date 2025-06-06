@@ -85,9 +85,9 @@ Para compilar la librería: `go build -o array.dll -buildmode=c-shared array.go`
 - `char** NewStringArray(int size)`: Crea string array vacío.
 
 #### Liberar memoria
-- `void FreeString(char* str)`
-- `void FreeStringArray(char** strs)`
 - `void FreeIntArray(int* ints)`
 - `void FreeDoubleArray(double* flos)`
+- `void FreeString(char* str)`
+- `void FreeStringArray(char** strs)`
 
 ---
