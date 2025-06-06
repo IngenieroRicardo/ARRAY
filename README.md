@@ -63,6 +63,10 @@ Para compilar la librería: `go build -o array.dll -buildmode=c-shared array.go`
 #### IntArray
 - `int* NewIntArray(int size)`: Crea int array vacío.
 
+
+#### DoubleArray
+- `double* NewDoubleArray(int size)`: Crea double array vacío.
+
 #### String
 - `int Contains(char* str, char* substr)`: Busca coincidencias dentro del string.
 - `int Equals(char* str1, char* str2)`: Compara dos string.
