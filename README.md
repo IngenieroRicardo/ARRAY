@@ -167,13 +167,14 @@ int main() {
 - `char* ToUpperCase(char* str);`: Convierte el string a mayúsculas.
 - `char* Trim(char* str)`: Elimina los espacios en blanco al inicio y al final del string.
 - `char* ReplaceAll(char* str, char* old, char* new)`: Reemplaza un string dentro de otro.
-- `void FreeString(char* str)`
+- `char* NewString(int size);`: Crea string vacío.
+- `void FreeString(char* str)`: Libera memoria
 
 #### StringArray
 - `int GetStringArraySize(char** strs)`: Obtiene longitud del string array.
 - `char* ConcatAll(char** strs)`: Concatena todos los string del array.
 - `char** Split(char* str, char* sep)`: Convierte string a string array por un separador.
 - `char** NewStringArray(int size)`: Crea string array vacío.
-- `void FreeStringArray(char** strs)`
+- `void FreeStringArray(char** strs)`: Libera memoria
 
 ---
