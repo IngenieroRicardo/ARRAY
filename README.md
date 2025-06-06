@@ -62,8 +62,6 @@ FALTA: - ` int* = IntArray `
 
 #### IntArray
 
-FALTA: - `int GetIntArraySize(int* ints)`: Obtiene longitud del int array.
-
 FALTA: - `int SumAll(int* ints)`: Suma todos los int del array.
 
 FALTA: - `char** NewIntArray(int size)`: Crea int array vacío.
