@@ -9,8 +9,8 @@ Para compilar la librería: `go build -o array.dll -buildmode=c-shared array.go`
 
 | Linux | Windows |
 | --- | --- |
-| `wget https://github.com/IngenieroRicardo/array/releases/download/1.0/array.so` | `Invoke-WebRequest https://github.com/IngenieroRicardo/array/releases/download/1.0/array.dll -OutFile ./array.dll` |
-| `wget https://github.com/IngenieroRicardo/array/releases/download/1.0/array.h` | `Invoke-WebRequest https://github.com/IngenieroRicardo/array/releases/download/1.0/array.h -OutFile ./array.h` |
+| `wget https://github.com/IngenieroRicardo/array/releases/download/2.0/array.so` | `Invoke-WebRequest https://github.com/IngenieroRicardo/array/releases/download/2.0/array.dll -OutFile ./array.dll` |
+| `wget https://github.com/IngenieroRicardo/array/releases/download/2.0/array.h` | `Invoke-WebRequest https://github.com/IngenieroRicardo/array/releases/download/2.0/array.h -OutFile ./array.h` |
 
 ---
 
