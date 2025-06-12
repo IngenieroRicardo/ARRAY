@@ -103,29 +103,32 @@ int main() {
 
 ```C
 #include <stdio.h>
-#include "array.h"
+#include "db.h"
 
 int main() {
-    // Comparaciones
-    printf("Equals: %d\n", Equals("hola", "hola"));
-    printf("Contains: %d\n", Contains("hola mundo", "mun"));
+    char* diver = "mysql";
+    char* conexion = "root:123456@tcp(127.0.0.1:3306)/test";
     
-    // Reemplazo
-    char* replaced = ReplaceAll("comida bar comida", "comida", "bebida");
-    printf("Replaced: %s\n", replaced);
+    // Ejemplo 1: Consulta INSERT con parámetros
+    char* consulta_insert = "INSERT INTO chat.usuario(nickname, picture) VALUES (?, ?);";
     
-    // Validación
-    printf("IsNumeric: %d\n", IsNumeric("123.45"));
-    printf("IsNumeric: %d\n", IsNumeric("abc"));
+    // Preparar los argumentos para el INSERT
+    char* argumentos_inser1 = strdup("Ricardo");  // Parámetro de tipo cadena (nickname)
+    // Parámetro de tipo blob (imagen codificada en base64)
+    char* argumentos_inser2 = strdup("blob::iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAArSURBVBhXY/iPA0AlGBgwGFAKlwQmAKrAIgcVRZODCsI5cAAVgVDo4P9/AHe4m2U/OJCWAAAAAElFTkSuQmCC");
     
-    // Substrings
-    char* sub = Substring("Hola mundo", 6, 10);
-    printf("Substring: %s\n", sub);
+    // Ejecutar la consulta INSERT
+    SQLResult resultado_insert = SQLrun(diver, conexion, consulta_insert, argumentos_inser1, argumentos_inser2, NULL);
     
-    // Liberar memoria
-    FreeString(replaced);
-    FreeString(sub);
-
+    // Mostrar los resultados
+    printf("Resultado del INSERT:\n");
+    printf("JSON: %s\n", resultado_insert.json);         // Respuesta en formato JSON
+    printf("Es error: %d\n", resultado_insert.is_error); // 1 si hubo error, 0 si éxito
+    printf("Está vacío: %d\n\n", resultado_insert.is_empty); // 1 para consultas que no retornan datos
+    
+    // Liberar los recursos utilizados
+    FreeSQLResult(resultado_insert); // Liberar la memoria del resultado
+    
     return 0;
 }
 ```
